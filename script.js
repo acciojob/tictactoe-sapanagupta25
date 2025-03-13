@@ -6,8 +6,8 @@ let board = ["", "", "", "", "", "", "", "", ""];
 let gameOver = false;
 
 document.getElementById("submit").addEventListener("click", () => {
-    player1 = document.getElementById("player-1").value.trim();
-    player2 = document.getElementById("player-2").value.trim();
+    player1 = document.getElementById("player1").value.trim();
+    player2 = document.getElementById("player2").value.trim();
 
     if (player1 && player2) {
         document.querySelector(".input-section").classList.add("hidden");
@@ -29,7 +29,7 @@ function createBoard() {
     for (let i = 0; i < 9; i++) {
         const cell = document.createElement("div");
         cell.classList.add("cell");
-        cell.setAttribute("id", i);
+        cell.setAttribute("id", i + 1); // IDs start from 1 for Cypress
         cell.addEventListener("click", () => handleCellClick(i));
         boardElement.appendChild(cell);
     }
@@ -38,9 +38,9 @@ function createBoard() {
 function handleCellClick(index) {
     if (board[index] || gameOver) return;
 
-    board[index] = currentPlayer === player1 ? "X" : "O";
-    document.getElementById(index).innerText = board[index];
-    document.getElementById(index).classList.add("taken");
+    board[index] = currentPlayer === player1 ? "x" : "o";
+    document.getElementById(index + 1).innerText = board[index];
+    document.getElementById(index + 1).classList.add("taken");
 
     if (checkWinner()) {
         updateMessage(`${currentPlayer} congratulations you won!`);
